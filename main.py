@@ -29,38 +29,24 @@ class DirectoryManager:
         )
         self.read_in_btn.pack(pady=10)
 
-        self.process_btn = tk.Button(
-            root, text="Process Staged Data (0 remaining)", 
-            bg="#1d5c38", fg="white", font=('Arial', 10, 'bold'),
-            command=self.open_process_popup
-        )
-        #Check if items in read in queue
-        
-        """ BUTTONS BELOW: Consider editing (see functions in hash)"""
-        self.read_in_btn = tk.Button(
-                    root, text="Check link", 
-                    bg="#33493c", fg="white", font=('Arial', 10, 'bold'),
-                    command=self.check_link
-                )
-        self.read_in_btn.pack(pady=10)
-
-        self.read_in_btn = tk.Button(
-                    root, text="Convert to SQL", 
-                    bg="#33493c", fg="white", font=('Arial', 10, 'bold'),
-                    command=self.send_to_sql
-                )
-        self.read_in_btn.pack(pady=10)
-        
-
         #dropdown lists
         self.section_menu = tk.StringVar(value="Select Section")
         self.subsection_menu = tk.StringVar(value="Select Subsection")
         
+        tk.Label(root, text="Resource URL:", font=('Times New Roman', 10, 'bold')).pack(padx=(0, 5))
 
+        url_frame = tk.Frame(root)
+        url_frame.pack()
         #URL input
-        tk.Label(root, text="Resource URL:", font=('Times New Roman', 10, 'bold')).pack(pady=(10,0))
-        self.url_entry = tk.Entry(root, width=80)
-        self.url_entry.pack(pady=5)
+        self.url_entry = tk.Entry(url_frame, width=70)
+        self.url_entry.pack(side="left")
+
+        self.check_link_btn = tk.Button(
+                    url_frame, text="Check link", 
+                    bg="#33493c", fg="white", font=('Arial', 10, 'bold'),
+                    command=self.check_link
+                )
+        self.check_link_btn.pack(pady=10)
 
         #Description input
         tk.Label(root, text="Description:", font=('Comic Sans', 10, 'bold')).pack(pady=(10,0))
@@ -95,10 +81,26 @@ class DirectoryManager:
         self.entry_count_label.pack(pady=(0,5))
         self.update_entry_count()
 
+        add_frame = tk.Frame(root)
+        add_frame.pack()
+
+        self.process_btn = tk.Button(
+            add_frame, text="Process Staged Data (0 remaining)", 
+            bg="#1d5c38", fg="white", font=('Arial', 10, 'bold'),
+            command=self.open_process_popup
+        )
+
+        self.convert_btn = tk.Button(
+            add_frame, text="Convert entries to SQL", 
+            bg="#1d5c38", fg="white", font=('Arial', 10, 'bold'),
+            command=self.send_to_sql
+        )
+        self.convert_btn.pack()
+
         #Add to JSON button
         self.add_btn = tk.Button(
             root, text="Verify & Add", 
-            bg="#33493c", fg="white", font=('Arial', 10, 'bold'),
+            bg="#1d5c38", width=20, fg="white", font=('Arial', 10, 'bold'), 
             command=self.validate_and_check
         )
         self.add_btn.pack(pady=20)
@@ -106,8 +108,9 @@ class DirectoryManager:
         self.root.bind('<Return>', lambda e: self.validate_and_check())
 
         self.update_process_button()
-
     """ End of init"""
+
+
 
     """Class functions"""
     #get the data then add the data to the JSON
@@ -338,7 +341,7 @@ class DirectoryManager:
         btn_frame.pack(pady=15)
 
         tk.Button(
-            btn_frame, text="Verify & Add", bg="#33493c", fg="white", 
+            btn_frame, text="Verify & Add", bg="#1d5c38", fg="white", 
             font=('Arial', 9, 'bold'), width=12, command=commit_and_next
         ).grid(row=0, column=0, padx=5)
 
@@ -517,7 +520,7 @@ class DirectoryManager:
         count = len(self.excel_queue)
         if count > 0:
             self.process_btn.config(text=f"Process Staged Data ({count} remaining)")
-            self.process_btn.pack(pady=(0, 10), before=self.add_btn)
+            self.process_btn.pack(side="left", pady=(0, 10), before=self.convert_btn)
         else:
             self.process_btn.pack_forget()
 
@@ -575,7 +578,7 @@ class DirectoryManager:
             print(f"URL {url}has not been added")
 
 
-
+"""Main function"""
 if __name__ == "__main__":
     root = tk.Tk()
     app = DirectoryManager(root)
