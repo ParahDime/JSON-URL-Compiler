@@ -107,64 +107,111 @@ class DirectoryManager:
 
         self.update_process_button()
 
-    #save the queue
-    def save_queue_to_disk(self):
-        with open(self.queue_file, 'w') as f:
-            json.dump(self.excel_queue, f, indent=4)
+    """ End of init"""
 
-    # ADDED: Remove single item from queue and rewrite queue.json
-    def remove_from_queue_disk(self, index=0):
-        if self.excel_queue:
-            self.excel_queue.pop(index)
-            self.save_queue_to_disk()
+    """Class functions"""
+    #get the data then add the data to the JSON
+    def addToFile(self):
+        entry = {
+            "url": self.url_entry.get().strip(),
+            "description": self.desc_entry.get("1.0", tk.END).strip(),
+            "section": self.sec_var.get(),
+            "subsection": self.sub_var.get()
+        }
 
-    def select_excel_file(self):
-        file_path = filedialog.askopenfilename(
-            title="Select Excel File",
-            filetypes=[("Excel Files", "*.xlsx *.xls"), ("All Files", "*.*")]
-        )
-        if not file_path:
+        #append the data into the file
+        data = self.load_json(self.data_file)
+        data.append(entry)                     
+
+        #write to file
+        with open(self.data_file, 'w') as f:
+            json.dump(data, f, indent=4)       
+
+        messagebox.showinfo("Saved", f"Entry added to {self.data_file}")
+        return True
+
+    #check a link for any matches (close + identical)
+    def check_link(self):
+        raw = self.url_entry.get().strip()
+        if not raw:
+            messagebox.showerror("Error", "Enter a URL to check.")
+            return
+        exact, similar = self.find_matches(self.normalise_url(raw), self.load_json(self.data_file))
+        if not exact and not similar:
+            messagebox.showinfo("Check link", "No matches found.")
             return
 
+        popup = tk.Toplevel(self.root)
+        popup.title("Link Check")
+        popup.geometry("500x250")
+        lb = tk.Listbox(popup, width=70)
+        lb.pack(fill='both', expand=True, padx=10, pady=10)
+        #check for exact matches first
+        for tag, group in (("EXACT", exact), ("SIMILAR", similar)):
+            for e in group:
+                lb.insert(tk.END, f"[{tag}] {e['url']}  |  {e['section']} > {e['subsection']}")
+                if tag == "SIMILAR":
+                    lb.itemconfig(tk.END, fg="#FFA500")
+                if tag == "EXACT":
+                    lb.itemconfig(tk.END, fg="#8b0000") 
+
+    #clear each field, use after a successful entry
+    def clearFields(self):
+        self.url_entry.delete(0, tk.END)
+        self.desc_entry.delete("1.0", tk.END)
+        self.sec_var.set("Section")
+        self.sub_var.set("Select Subsection")
+        
+        self.subsection_menu["menu"].delete(0, "end")
+
+    def find_matches(self, url, data):
+        key, domain = self.url_key(url), self.get_base_domain(url)
+        exact = [e for e in data if self.url_key(e['url']) == key]
+        similar = [e for e in data if self.url_key(e['url']) != key and self.get_base_domain(e['url']) == domain]
+        return exact, similar
+
+    #get the first part of the domain
+    def get_base_domain(self, url):
+        if "://" not in url:
+            url = "https://" + url
+        return urlparse(url).netloc.lower() #.removeprefix("www.")
+    
+    #Dropdown population
+    def load_json(self, filename):
+        if not os.path.exists(filename):
+            return {} if "category" in filename else []
         try:
-            sheets_dict = pd.read_excel(file_path, sheet_name=None, header=None)
-            new_items_count = 0
+            with open(filename, 'r') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError):
+            return {} if "category" in filename else []
 
-            for sheet_name, df in sheets_dict.items():
-                df = df.dropna(how='all')
-                for _, row in df.iterrows():
-                    subsec = str(row.iloc[1]).strip() if len(row) > 1 and pd.notna(row.iloc[1]) else ""
-                    raw_url = str(row.iloc[2]).strip() if len(row) > 2 and pd.notna(row.iloc[2]) else ""
-                    desc = str(row.iloc[3]).strip() if len(row) > 3 and pd.notna(row.iloc[3]) else ""
-
-                    if raw_url:
-                        # CHANGED: Appends to existing list so multiple Excel files stack together
-                        self.excel_queue.append({
-                            "section": str(sheet_name).strip(),
-                            "subsection": subsec,
-                            "url": raw_url,
-                            "description": desc
-                        })
-                        new_items_count += 1
-
-            if new_items_count > 0:
-                # CHANGED: Persists entire updated queue array to queue.json once reading completes
-                self.save_queue_to_disk()
-                self.update_process_button()
-                messagebox.showinfo("Success", f"Added {new_items_count} items to queue. Total staged: {len(self.excel_queue)}")
-            else:
-                messagebox.showwarning("Warning", "No valid link entries found in the file.")
-
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to parse Excel file:\n{str(e)}")
-
-    def update_process_button(self):
-        count = len(self.excel_queue)
-        if count > 0:
-            self.process_btn.config(text=f"Process Staged Data ({count} remaining)")
-            self.process_btn.pack(pady=(0, 10), before=self.add_btn)
-        else:
-            self.process_btn.pack_forget()
+    #Load the unsorted stored data
+    def load_queue(self):
+        if not os.path.exists("queue.json"):
+            return []
+        try:
+            with open("queue.json", "r") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError):
+            return []
+        
+    #sanitise and normalise the url (ensuring https and www are added)
+    def normalise_url(self, url):
+        url = url.strip()
+        if not url: #empty url is returned
+            return ""
+        
+        # add https:// if no protocol present
+        if not url.startswith(("http://", "https://", "ftp://")):
+            url = "https://" + url
+        
+        # add www. if no subdomain present
+        parsed = urlparse(url)
+        if not parsed.netloc.startswith("www."):
+            url = url.replace(parsed.netloc, "www." + parsed.netloc)
+        
+        return url
 
     def open_process_popup(self):
         if not self.excel_queue:
@@ -305,7 +352,36 @@ class DirectoryManager:
             font=('Arial', 9, 'bold'), width=12, command=skip_for_later
         ).grid(row=0, column=2, padx=5)   
 
+    
+    #Remove single item from queue and rewrite queue.json
+    def remove_from_queue_disk(self, index=0):
+        if self.excel_queue:
+            self.excel_queue.pop(index)
+            self.save_queue_to_disk()
 
+    #refresh the list of 3 most recent url additions
+    def refresh_recent(self):
+        data = self.load_json(self.data_file)
+        last_three = data[-3:]                          
+        
+        self.recent_box.config(state='normal')
+        self.recent_box.delete("1.0", tk.END)
+        
+        for entry in reversed(last_three):
+            line = f"{entry['url']} | {entry['section']} > {entry['subsection']}\n"
+            self.recent_box.insert(tk.END, line)
+        
+        self.recent_box.config(state='disabled')
+
+    #Save the queue whenever a state changes
+    def save_queue(self):
+        with open("queue.json", "w") as f:
+            json.dump(self.excel_queue, f, indent=4)
+
+    #save the queue
+    def save_queue_to_disk(self):
+        with open(self.queue_file, 'w') as f:
+            json.dump(self.excel_queue, f, indent=4) 
 
     #convert json file to sql .db
     def send_to_sql(self):
@@ -344,49 +420,78 @@ class DirectoryManager:
             finally:
                 conn.close()
 
-    def find_matches(self, url, data):
-        key, domain = self.url_key(url), self.get_base_domain(url)
-        exact = [e for e in data if self.url_key(e['url']) == key]
-        similar = [e for e in data if self.url_key(e['url']) != key and self.get_base_domain(e['url']) == domain]
-        return exact, similar
 
-    #check a link for any matches (close + identical)
-    def check_link(self):
-        raw = self.url_entry.get().strip()
-        if not raw:
-            messagebox.showerror("Error", "Enter a URL to check.")
-            return
-        exact, similar = self.find_matches(self.normalise_url(raw), self.load_json(self.data_file))
-        if not exact and not similar:
-            messagebox.showinfo("Check link", "No matches found.")
+    def select_excel_file(self):
+        file_path = filedialog.askopenfilename(
+            title="Select Excel File",
+            filetypes=[("Excel Files", "*.xlsx *.xls"), ("All Files", "*.*")]
+        )
+        if not file_path:
             return
 
-        popup = tk.Toplevel(self.root)
-        popup.title("Link Check")
-        popup.geometry("500x250")
-        lb = tk.Listbox(popup, width=70)
-        lb.pack(fill='both', expand=True, padx=10, pady=10)
-        #check for exact matches first
-        for tag, group in (("EXACT", exact), ("SIMILAR", similar)):
-            for e in group:
-                lb.insert(tk.END, f"[{tag}] {e['url']}  |  {e['section']} > {e['subsection']}")
-                if tag == "SIMILAR":
-                    lb.itemconfig(tk.END, fg="#FFA500")
-                if tag == "EXACT":
-                    lb.itemconfig(tk.END, fg="#8b0000") 
-
-
-
-    #Dropdown population
-    def load_json(self, filename):
-        if not os.path.exists(filename):
-            return {} if "category" in filename else []
         try:
-            with open(filename, 'r') as f:
-                return json.load(f)
-        except (json.JSONDecodeError, FileNotFoundError):
-            return {} if "category" in filename else []
+            sheets_dict = pd.read_excel(file_path, sheet_name=None, header=None)
+            new_items_count = 0
 
+            for sheet_name, df in sheets_dict.items():
+                df = df.dropna(how='all')
+                for _, row in df.iterrows():
+                    subsec = str(row.iloc[1]).strip() if len(row) > 1 and pd.notna(row.iloc[1]) else ""
+                    raw_url = str(row.iloc[2]).strip() if len(row) > 2 and pd.notna(row.iloc[2]) else ""
+                    desc = str(row.iloc[3]).strip() if len(row) > 3 and pd.notna(row.iloc[3]) else ""
+
+                    if raw_url:
+                        self.excel_queue.append({
+                            "section": str(sheet_name).strip(),
+                            "subsection": subsec,
+                            "url": raw_url,
+                            "description": desc
+                        })
+                        new_items_count += 1
+
+            if new_items_count > 0:
+                self.save_queue_to_disk()
+                self.update_process_button()
+                messagebox.showinfo("Success", f"Added {new_items_count} items to queue. Total staged: {len(self.excel_queue)}")
+            else:
+                messagebox.showwarning("Warning", "No valid link entries found in the file.")
+
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to parse Excel file:\n{str(e)}")
+
+    #popup window to show potential matches
+    def show_matches_popup(self, matches):
+        popup = tk.Toplevel(self.root)
+        popup.title("Similar Entries Found")
+        popup.geometry("500x250")
+        popup.grab_set()                                # locks focus to popup
+
+        tk.Label(popup, text="Multiple similar entries found:", font=('Arial', 10, 'bold')).pack(pady=(10,0))
+
+        # scrollable list
+        frame = tk.Frame(popup)
+        frame.pack(fill='both', expand=True, padx=10, pady=5)
+        scrollbar = tk.Scrollbar(frame)
+        scrollbar.pack(side='right', fill='y')
+        listbox = tk.Listbox(frame, yscrollcommand=scrollbar.set, width=70, height=10)
+        for e in matches:
+            listbox.insert(tk.END, f"{e['url']}  |  {e['section']} > {e['subsection']}")
+        listbox.pack(side='left', fill='both')
+        scrollbar.config(command=listbox.yview)
+
+        # result tracks whether user clicked Add or Cancel
+        result = tk.BooleanVar(value=False)
+
+        btn_frame = tk.Frame(popup)
+        btn_frame.pack(pady=10)
+        tk.Button(btn_frame, text="Add Anyway", bg="#33493c", fg="white",
+                command=lambda: [result.set(True), popup.destroy()]).grid(row=0, column=0, padx=10)
+        tk.Button(btn_frame, text="Cancel", bg="#8b0000", fg="white",
+                command=lambda: [result.set(False), popup.destroy()]).grid(row=0, column=1, padx=10)
+
+        self.root.wait_window(popup)                    # waits for popup to close before continuing
+        return result.get()
+    
     #after section is chosen, load in subsection JIT
     def sync_subsections(self, selection):
         self.sub_var.set("Select Subsection")
@@ -400,6 +505,25 @@ class DirectoryManager:
                 label=option, 
                 command=lambda v=option: self.sub_var.set(v)
             )
+
+    #update the entry count
+    def update_entry_count(self):
+        data = self.load_json(self.data_file)
+        count = len(data)
+        self.entry_count_label.config(text=f"Total entries: {count:,}")
+
+
+    def update_process_button(self):
+        count = len(self.excel_queue)
+        if count > 0:
+            self.process_btn.config(text=f"Process Staged Data ({count} remaining)")
+            self.process_btn.pack(pady=(0, 10), before=self.add_btn)
+        else:
+            self.process_btn.pack_forget()
+
+    def url_key(self, url):
+        p = urlparse(url if "://" in url else "https://" + url)
+        return f"{self.get_base_domain(url)}{p.path.rstrip('/')}?{p.query}"
     
     #compare input to other inputs in the same section
     def validate_and_check(self):
@@ -450,129 +574,7 @@ class DirectoryManager:
         else:
             print(f"URL {url}has not been added")
 
-    #get the first part of the domain
-    def get_base_domain(self, url):
-        if "://" not in url:
-            url = "https://" + url
-        return urlparse(url).netloc.lower() #.removeprefix("www.")
 
-    def url_key(self, url):
-        p = urlparse(url if "://" in url else "https://" + url)
-        return f"{self.get_base_domain(url)}{p.path.rstrip('/')}?{p.query}"
-
-    #sanitise and normalise the url (ensuring https and www are added)
-    def normalise_url(self, url):
-        url = url.strip()
-        if not url: #empty url is returned
-            return ""
-        
-        # add https:// if no protocol present
-        if not url.startswith(("http://", "https://", "ftp://")):
-            url = "https://" + url
-        
-        # add www. if no subdomain present
-        parsed = urlparse(url)
-        if not parsed.netloc.startswith("www."):
-            url = url.replace(parsed.netloc, "www." + parsed.netloc)
-        
-        return url
-
-    #popup window to show potential matches
-    def show_matches_popup(self, matches):
-        popup = tk.Toplevel(self.root)
-        popup.title("Similar Entries Found")
-        popup.geometry("500x250")
-        popup.grab_set()                                # locks focus to popup
-
-        tk.Label(popup, text="Multiple similar entries found:", font=('Arial', 10, 'bold')).pack(pady=(10,0))
-
-        # scrollable list
-        frame = tk.Frame(popup)
-        frame.pack(fill='both', expand=True, padx=10, pady=5)
-        scrollbar = tk.Scrollbar(frame)
-        scrollbar.pack(side='right', fill='y')
-        listbox = tk.Listbox(frame, yscrollcommand=scrollbar.set, width=70, height=10)
-        for e in matches:
-            listbox.insert(tk.END, f"{e['url']}  |  {e['section']} > {e['subsection']}")
-        listbox.pack(side='left', fill='both')
-        scrollbar.config(command=listbox.yview)
-
-        # result tracks whether user clicked Add or Cancel
-        result = tk.BooleanVar(value=False)
-
-        btn_frame = tk.Frame(popup)
-        btn_frame.pack(pady=10)
-        tk.Button(btn_frame, text="Add Anyway", bg="#33493c", fg="white",
-                command=lambda: [result.set(True), popup.destroy()]).grid(row=0, column=0, padx=10)
-        tk.Button(btn_frame, text="Cancel", bg="#8b0000", fg="white",
-                command=lambda: [result.set(False), popup.destroy()]).grid(row=0, column=1, padx=10)
-
-        self.root.wait_window(popup)                    # waits for popup to close before continuing
-        return result.get()
-    
-    #get the data then add the data to the JSON
-    def addToFile(self):
-        entry = {
-            "url": self.url_entry.get().strip(),
-            "description": self.desc_entry.get("1.0", tk.END).strip(),
-            "section": self.sec_var.get(),
-            "subsection": self.sub_var.get()
-        }
-
-        #append the data into the file
-        data = self.load_json(self.data_file)
-        data.append(entry)                     
-
-        #write to file
-        with open(self.data_file, 'w') as f:
-            json.dump(data, f, indent=4)       
-
-        messagebox.showinfo("Saved", f"Entry added to {self.data_file}")
-        return True
-
-    #clear each field, use after a successful entry
-    def clearFields(self):
-        self.url_entry.delete(0, tk.END)
-        self.desc_entry.delete("1.0", tk.END)
-        self.sec_var.set("Section")
-        self.sub_var.set("Select Subsection")
-        
-        self.subsection_menu["menu"].delete(0, "end")
-
-    #update the entry count
-    def update_entry_count(self):
-        data = self.load_json(self.data_file)
-        count = len(data)
-        self.entry_count_label.config(text=f"Total entries: {count:,}")
-
-    #refresh the list of 3 most recent url additions
-    def refresh_recent(self):
-        data = self.load_json(self.data_file)
-        last_three = data[-3:]                          
-        
-        self.recent_box.config(state='normal')
-        self.recent_box.delete("1.0", tk.END)
-        
-        for entry in reversed(last_three):
-            line = f"{entry['url']} | {entry['section']} > {entry['subsection']}\n"
-            self.recent_box.insert(tk.END, line)
-        
-        self.recent_box.config(state='disabled')
-
-    #Load the unsorted stored data
-    def load_queue(self):
-        if not os.path.exists("queue.json"):
-            return []
-        try:
-            with open("queue.json", "r") as f:
-                return json.load(f)
-        except (json.JSONDecodeError, FileNotFoundError):
-            return []
-
-    #Save the queue whenever a state changes
-    def save_queue(self):
-        with open("queue.json", "w") as f:
-            json.dump(self.excel_queue, f, indent=4)
 
 if __name__ == "__main__":
     root = tk.Tk()
