@@ -321,7 +321,7 @@ class DirectoryManager:
             return
 
         if os.path.exists(path):
-            #os.remove(path)#remove old file to rewrite
+            os.remove(path)#remove old file to rewrite
             conn = sqlite3.connect(path)
             try:
                 conn.execute("""CREATE TABLE links (
@@ -344,9 +344,36 @@ class DirectoryManager:
             finally:
                 conn.close()
 
+    def find_matches(self, url, data):
+        key, domain = self.url_key(url), self.get_base_domain(url)
+        exact = [e for e in data if self.url_key(e['url']) == key]
+        similar = [e for e in data if self.url_key(e['url']) != key and self.get_base_domain(e['url']) == domain]
+        return exact, similar
+
     #check a link for any matches (close + identical)
-    def check_link():
-        print("hello world")   
+    def check_link(self):
+        raw = self.url_entry.get().strip()
+        if not raw:
+            messagebox.showerror("Error", "Enter a URL to check.")
+            return
+        exact, similar = self.find_matches(self.normalise_url(raw), self.load_json(self.data_file))
+        if not exact and not similar:
+            messagebox.showinfo("Check link", "No matches found.")
+            return
+
+        popup = tk.Toplevel(self.root)
+        popup.title("Link Check")
+        popup.geometry("500x250")
+        lb = tk.Listbox(popup, width=70)
+        lb.pack(fill='both', expand=True, padx=10, pady=10)
+        #check for exact matches first
+        for tag, group in (("EXACT", exact), ("SIMILAR", similar)):
+            for e in group:
+                lb.insert(tk.END, f"[{tag}] {e['url']}  |  {e['section']} > {e['subsection']}")
+                if tag == "SIMILAR":
+                    lb.itemconfig(tk.END, fg="#FFA500")
+                if tag == "EXACT":
+                    lb.itemconfig(tk.END, fg="#8b0000") 
 
 
 
@@ -414,22 +441,30 @@ class DirectoryManager:
                 return
 
         success = self.addToFile()
-        print(success)
         #clear fields and update recent files added if added correctly
         if success:
             self.clearFields()
             self.refresh_recent()
             self.update_entry_count()
+            print("URL has been added")
+        else:
+            print(f"URL {url}has not been added")
 
     #get the first part of the domain
     def get_base_domain(self, url):
-        if not url.startswith("http"):
+        if "://" not in url:
             url = "https://" + url
-        return urlparse(url).netloc
+        return urlparse(url).netloc.lower() #.removeprefix("www.")
+
+    def url_key(self, url):
+        p = urlparse(url if "://" in url else "https://" + url)
+        return f"{self.get_base_domain(url)}{p.path.rstrip('/')}?{p.query}"
 
     #sanitise and normalise the url (ensuring https and www are added)
     def normalise_url(self, url):
         url = url.strip()
+        if not url: #empty url is returned
+            return ""
         
         # add https:// if no protocol present
         if not url.startswith(("http://", "https://", "ftp://")):

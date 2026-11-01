@@ -2,3 +2,5 @@ secrets.txt
 queue.json
 todo.txt
 /pycache
+directory.db
+directory.sql
