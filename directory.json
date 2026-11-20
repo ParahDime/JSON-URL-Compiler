@@ -6262,5 +6262,719 @@
         "description": "",
         "section": "Socials",
         "subsection": "Social Media"
+    },
+    {
+        "url": "https://www.pydle.net/",
+        "description": "Learn python in wordle like game",
+        "section": "Programming Languages",
+        "subsection": "Python"
+    },
+    {
+        "url": "https://www.hexrom.com/",
+        "description": "Hexrom, play games within the browser",
+        "section": "Games",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.github.com/elripalda/RecompLauncher",
+        "description": "Recomp launcher, for cross games",
+        "section": "Games",
+        "subsection": "Discovery"
+    },
+    {
+        "url": "https://www.bitburner-official.github.io/",
+        "description": "Javascript learning game",
+        "section": "Programming Languages",
+        "subsection": "JavaScript"
+    },
+    {
+        "url": "https://www.sqlmaxx.com/",
+        "description": "Learn SQL",
+        "section": "Programming Languages",
+        "subsection": "SQL"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=WxaXmB-tPBE",
+        "description": "Game engines explained",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.freecodecamp.org/news/godot-game-development-for-unity-developers/",
+        "description": "Learn Godot game engine",
+        "section": "Game Development",
+        "subsection": "Resources"
+    },
+    {
+        "url": "https://www.spritedatabase.net/",
+        "description": "Database of sprites",
+        "section": "Game Development",
+        "subsection": "Resources"
+    },
+    {
+        "url": "https://www.stripskunk.com/sourceH5/",
+        "description": "HTML5 Assets",
+        "section": "Programming Languages",
+        "subsection": "HTML"
+    },
+    {
+        "url": "https://www.turbosquid.com/Search/3D-Models/free",
+        "description": "3D gaming models",
+        "section": "Game Development",
+        "subsection": "Assets"
+    },
+    {
+        "url": "https://www.free3d.com/3d-models/",
+        "description": "3D game models",
+        "section": "Game Development",
+        "subsection": "Assets"
+    },
+    {
+        "url": "http://www.american3dprinting.net/3dmodels/peterstumpp/",
+        "description": "Model Sculpt files",
+        "section": "Game Development",
+        "subsection": "Assets"
+    },
+    {
+        "url": "https://www.kenney.nl/assets?q=3d",
+        "description": "3D models",
+        "section": "Game Development",
+        "subsection": "Assets"
+    },
+    {
+        "url": "https://www.sketchfab.com/",
+        "description": "3D and AR assets",
+        "section": "Game Development",
+        "subsection": "Assets"
+    },
+    {
+        "url": "https://www.devel.lulzbot.com/filament/profile_test_prints/make-2016-3d-printer-shootout-models/",
+        "description": "3D Model Prints",
+        "section": "Game Development",
+        "subsection": "Assets"
+    },
+    {
+        "url": "https://www.opengameart.org/",
+        "description": "Game art",
+        "section": "Game Development",
+        "subsection": "Resources"
+    },
+    {
+        "url": "http://www.tdxlibrary.org/Downloads/",
+        "description": "Game graphics library",
+        "section": "Game Development",
+        "subsection": "Assets"
+    },
+    {
+        "url": "https://www.ohmygit.org",
+        "description": "Learn git",
+        "section": "Programming Languages",
+        "subsection": "Git"
+    },
+    {
+        "url": "https://www.plasson.co.il/cad/ CAD files",
+        "description": "CAD files",
+        "section": "Engineering",
+        "subsection": "CAD"
+    },
+    {
+        "url": "https://www.vrspace.org/content/",
+        "description": "3D modelling",
+        "section": "Game Development",
+        "subsection": "Assets"
+    },
+    {
+        "url": "https://www.art-pix.co.il/3d-models/",
+        "description": "3d modelling",
+        "section": "Game Development",
+        "subsection": "Resources"
+    },
+    {
+        "url": "https://www.graphics.pixar.com/library/",
+        "description": "Pixar on 3D modelling",
+        "section": "Game Development",
+        "subsection": "Resources"
+    },
+    {
+        "url": "https://www.web.microsoftstream.com/video/16f00f6d-49df-4d3b-84be-b73bb2964ec0",
+        "description": "Using 3D assets",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.sockpuppets.medium.com/game-hacking-101-unleashing-the-power-of-memory-manipulation-7fa4e53058fa",
+        "description": "Game hacking 101",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=ujlCH15v8gw",
+        "description": "Textures in blender",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=rng7AYfJk4Q",
+        "description": "Textures in blender",
+        "section": "Game Development",
+        "subsection": "Resources"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=pwZpJzpE2lQ",
+        "description": "Unity",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=vFjXKOXdgGo",
+        "description": "Unity",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=gB1F9G0JXOo",
+        "description": "Unity for beginners",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=YVhCujiWaME",
+        "description": "RPG Maker",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=SsrHHiJeAJ8",
+        "description": "Unreal",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=WHfAWzApoJ4",
+        "description": "Quest",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=4HoJIgyclZ4",
+        "description": "Unreal FPS",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=4Bv45aPMGyI",
+        "description": "Using a HUD",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=Ae_zvm0-CQU",
+        "description": "Level Design",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=PlbwQ_rntCM",
+        "description": "Sakurai Mindset",
+        "section": "Game Development",
+        "subsection": "Resources"
+    },
+    {
+        "url": "https://www.youtube.com/c/MarkBrownGMT",
+        "description": "Game Makers toolkit",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/playlist?list=PLL0cLF8gjBprG6487lxqSq-aEo6ZXLDLg",
+        "description": "Make an FPS",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.callingbullshit.org",
+        "description": "How to spot BS",
+        "section": "Psychology",
+        "subsection": "Skills"
+    },
+    {
+        "url": "https://www.studywithmommy.com",
+        "description": "AI based study partner",
+        "section": "Software",
+        "subsection": "Productivity"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=H63Bqex1Urs&ab_channel=GameMaker%27sToolkit",
+        "description": "How to combine video game genres",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=6DIEZhk_ES8",
+        "description": "Unreal engine 5.2",
+        "section": "Game Development",
+        "subsection": "Tutorials"
+    },
+    {
+        "url": "https://www.docs.google.com/document/d/1GWI84kxvH6UgxME1txXgWpyjvcDe1-_XaF9cjZBe8DU/edit",
+        "description": "Graphics and game dev links",
+        "section": "Game Development",
+        "subsection": "Resources"
+    },
+    {
+        "url": "https://www.fundacionrenta.com/assets/",
+        "description": "Not opened",
+        "section": "Images",
+        "subsection": "Other"
+    },
+    {
+        "url": "https://www.hicon.me/",
+        "description": "Images icons + docs",
+        "section": "Images",
+        "subsection": "Other"
+    },
+    {
+        "url": "http://www.robotics.stanford.edu/~latombe/mountain/faces/",
+        "description": "Pictures of faces",
+        "section": "Images",
+        "subsection": "Stock"
+    },
+    {
+        "url": "https://www.kisspng.com/",
+        "description": "Royalty free images",
+        "section": "Images",
+        "subsection": "Stock"
+    },
+    {
+        "url": "https://www.pinterest.co.uk/",
+        "description": "Imageboard for planning",
+        "section": "Images",
+        "subsection": "Other"
+    },
+    {
+        "url": "https://www.gwern.net/images/",
+        "description": "Index of images (4chan based?)",
+        "section": "Images",
+        "subsection": "Image Learning/Scraping"
+    },
+    {
+        "url": "https://www.pixabay.com/",
+        "description": "Royalty free images",
+        "section": "Images",
+        "subsection": "Stock"
+    },
+    {
+        "url": "https://www.picsum.photos/",
+        "description": "Lorem ipsum of images",
+        "section": "Images",
+        "subsection": "Stock"
+    },
+    {
+        "url": "http://www.lineicons.com",
+        "description": "Icons",
+        "section": "Images",
+        "subsection": "Icons"
+    },
+    {
+        "url": "https://www.thenounproject.com",
+        "description": "Images and icons",
+        "section": "Images",
+        "subsection": "Icons"
+    },
+    {
+        "url": "https://www.openpeeps.com",
+        "description": "Illustration lib",
+        "section": "Images",
+        "subsection": "Stock"
+    },
+    {
+        "url": "http://www.topsfieldbassets.com/Topsfield%20Basset%20Hounds/images/sheep/",
+        "description": "Sheep",
+        "section": "Images",
+        "subsection": "Animals"
+    },
+    {
+        "url": "http://www.irishsimmental.com/images/",
+        "description": "Cows",
+        "section": "Images",
+        "subsection": "Animals"
+    },
+    {
+        "url": "https://www.foto.sokolow.at/",
+        "description": "Images from ebay?",
+        "section": "Images",
+        "subsection": "Other"
+    },
+    {
+        "url": "https://www.kapwing.com/",
+        "description": "Image and video editor",
+        "section": "Images",
+        "subsection": "Editors"
+    },
+    {
+        "url": "https://www.ezgif.com/maker",
+        "description": "Make gifs",
+        "section": "Images",
+        "subsection": "Editors"
+    },
+    {
+        "url": "https://www.drive.google.com/drive/folders/0Bx2Vez2N3qd7SGxkejRhQmdKQlk",
+        "description": "Wallpapers",
+        "section": "Images",
+        "subsection": "Wallpapers"
+    },
+    {
+        "url": "http://www.spliffmobile.com/mobile-wallpapers/ Mobile wallpapers",
+        "description": "Wallpapers",
+        "section": "Images",
+        "subsection": "Wallpapers"
+    },
+    {
+        "url": "https://www.s.soarn.pro/releases/16JUNE2019/",
+        "description": "Zero Two",
+        "section": "Images",
+        "subsection": "Wallpapers"
+    },
+    {
+        "url": "http://www.research.mrl.ucsb.edu/~ngeorge/downloads/Desktop%20Backgrounds/",
+        "description": "Desktop backgrounds",
+        "section": "Images",
+        "subsection": "Wallpapers"
+    },
+    {
+        "url": "https://www.findthatmeme.com/",
+        "description": "Meme search engine",
+        "section": "Images",
+        "subsection": "Other"
+    },
+    {
+        "url": "https://www.imgflip.com/",
+        "description": "Meme generator",
+        "section": "Images",
+        "subsection": "Editors"
+    },
+    {
+        "url": "http://www.ratatosk.nu/fun/strips/",
+        "description": "Memes & Comic strips",
+        "section": "Images",
+        "subsection": "Comics"
+    },
+    {
+        "url": "https://www.spiked.co.uk/i/",
+        "description": "Memes as gif",
+        "section": "Images",
+        "subsection": "Memes"
+    },
+    {
+        "url": "https://www.rasterbator.net/",
+        "description": "Wall image generator",
+        "section": "Images",
+        "subsection": "Wallpapers"
+    },
+    {
+        "url": "https://www.wipo.int/idpub/",
+        "description": "Patent images",
+        "section": "Images",
+        "subsection": "Other"
+    },
+    {
+        "url": "https://www.ftp.arl.mil/",
+        "description": "Comp doc/images (first 50 server)",
+        "section": "Images",
+        "subsection": "Image Learning/Scraping"
+    },
+    {
+        "url": "https://www.github.com/bumble-tech/private-detector",
+        "description": "NSFW image classifier",
+        "section": "Images",
+        "subsection": "Other"
+    },
+    {
+        "url": "https://www.github.com/GantMan/nsfw_model",
+        "description": "NSFW image identifier",
+        "section": "Images",
+        "subsection": "Image Learning/Scraping"
+    },
+    {
+        "url": "https://www.nsfwjs.com/",
+        "description": "NSFW image identifier",
+        "section": "Images",
+        "subsection": "Image Learning/Scraping"
+    },
+    {
+        "url": "https://www.reddit.com/r/Futurology/comments/5dmf7i/miles_deep_is_a_new_ai_that_can_classify_each/",
+        "description": "Image identifier",
+        "section": "Images",
+        "subsection": "Image Learning/Scraping"
+    },
+    {
+        "url": "https://www.news.microsoft.com/uploads/2016/03/photoDNACloudServiceFS.pdf",
+        "description": "Illegal image identifier",
+        "section": "Images",
+        "subsection": "Image Learning/Scraping"
+    },
+    {
+        "url": "https://www.virtualflybrain.org/data/VFB/",
+        "description": "Fly brain imaging",
+        "section": "Images",
+        "subsection": "Other"
+    },
+    {
+        "url": "https://www.planetarydata.jpl.nasa.gov/img/data/",
+        "description": "NASA JPL data",
+        "section": "Images",
+        "subsection": "Other"
+    },
+    {
+        "url": "https://www.uk.babbel.com/",
+        "description": "Learn to speak a foreign language",
+        "section": "Languages",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.duolingo.com/",
+        "description": "",
+        "section": "Languages",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.busuu.com/",
+        "description": "",
+        "section": "Languages",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.rosettastone.co.uk/",
+        "description": "",
+        "section": "Languages",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.memrise.com/",
+        "description": "",
+        "section": "Languages",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.hellotalk.com/?lang=en",
+        "description": "",
+        "section": "Languages",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.bbc.co.uk/languages",
+        "description": "",
+        "section": "Languages",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.verbling.com/",
+        "description": "",
+        "section": "Languages",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.lingopie.com/",
+        "description": "Learn Languages through tv/video",
+        "section": "Languages",
+        "subsection": "Sites"
+    },
+    {
+        "url": "http://www.clozemaster.com/",
+        "description": "Fill in the blank language learning",
+        "section": "Languages",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.localingual.com/",
+        "description": "Listen to accents/languages",
+        "section": "Languages",
+        "subsection": "Helpful Info"
+    },
+    {
+        "url": "https://www.reddit.com/r/french",
+        "description": "French subreddit",
+        "section": "Languages",
+        "subsection": "French"
+    },
+    {
+        "url": "https://www.funambule.org/lectures/",
+        "description": "Ebooks & Lectures",
+        "section": "Languages",
+        "subsection": "Helpful Info"
+    },
+    {
+        "url": "https://www.docs.google.com/spreadsheets/d/1nytWpYilN5QfNmqS3SKcsMLyQQ9Mh_9_FXd6XMd0d0w/edit?usp=sharing",
+        "description": "German in google spreadsheet",
+        "section": "Languages",
+        "subsection": "German"
+    },
+    {
+        "url": "https://www.routledge.com/A-Frequency-Dictionary-of-German-Core-Vocabulary-for-Learners/Tschirner-Mohring/p/book/9781138659780",
+        "description": "4000 most common words in german",
+        "section": "Languages",
+        "subsection": "German"
+    },
+    {
+        "url": "https://www.studyspanish.com/",
+        "description": "",
+        "section": "Languages",
+        "subsection": "Spanish"
+    },
+    {
+        "url": "https://www.reddit.com/r/learnjapanese",
+        "description": "Japanese subreddit",
+        "section": "Languages",
+        "subsection": "Japanese"
+    },
+    {
+        "url": "https://www.tofugu.com/japanese/learn-katakana/",
+        "description": "Learn Katakana",
+        "section": "Languages",
+        "subsection": "Japanese"
+    },
+    {
+        "url": "https://www.github.com/Krazybug/talebook-library/tree/master/library",
+        "description": "Chinese library",
+        "section": "Languages",
+        "subsection": "Chinese"
+    },
+    {
+        "url": "https://www.github.com/ZhuangXulin/CalibreLibrary",
+        "description": "Chinese library",
+        "section": "Languages",
+        "subsection": "Chinese"
+    },
+    {
+        "url": "https://www.ifp.uni.wroc.pl/data/files/",
+        "description": "Polish pdf, docs, etc",
+        "section": "Languages",
+        "subsection": "Polish"
+    },
+    {
+        "url": "https://www.gmct.cz/media/files/library/",
+        "description": "Czech info",
+        "section": "Languages",
+        "subsection": "Czech"
+    },
+    {
+        "url": "https://www.reddit.com/r/languagelearning",
+        "description": "Language subreddit",
+        "section": "Languages",
+        "subsection": "Helpful Info"
+    },
+    {
+        "url": "https://www.geneseo.edu/~forlang/LanguageCDs/",
+        "description": "Foreign Language CDs",
+        "section": "Languages",
+        "subsection": "Helpful Info"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=L2qR9aKjtaI&list=PLw1rwWoSM6cLzDZ6NtyKLi-R9SBedXCAf",
+        "description": "Latvian language course",
+        "section": "Languages",
+        "subsection": "Other languages"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=6p9Il_j0zjc",
+        "description": "Learn Hirigana",
+        "section": "Languages",
+        "subsection": "Japanese"
+    },
+    {
+        "url": "https://www.youtu.be/5DyvThHdg6s",
+        "description": "Explains language levels",
+        "section": "Languages",
+        "subsection": "Helpful Info"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=KBZxE_RUabM",
+        "description": "How the FFL learn languages",
+        "section": "Languages",
+        "subsection": "Helpful Info"
+    },
+    {
+        "url": "https://www.youtube.com/watch?v=Pi5taR18uZ8",
+        "description": "How US army learn languages",
+        "section": "Languages",
+        "subsection": "Helpful Info"
+    },
+    {
+        "url": "https://www.sinosplice.com/life/archives/2016/08/25/what-80-comprehension-feels-like",
+        "description": "comprehension",
+        "section": "Languages",
+        "subsection": "Helpful Info"
+    },
+    {
+        "url": "https://www.theporndude.com/",
+        "description": "",
+        "section": "NSFW",
+        "subsection": "Directory"
+    },
+    {
+        "url": "https://www.e-hentai.org/",
+        "description": "",
+        "section": "NSFW",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.luscious.net/",
+        "description": "",
+        "section": "NSFW",
+        "subsection": "Sites"
+    },
+    {
+        "url": "http://www.desvirgadas.petardasgratis.net/fotos-desvirgadas/",
+        "description": "",
+        "section": "NSFW",
+        "subsection": "Other"
+    },
+    {
+        "url": "http://www.b2wblog.com/wp-content/uploads/",
+        "description": "OF Content",
+        "section": "NSFW",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.sorrymother.video/",
+        "description": "bypass cloudflare",
+        "section": "NSFW",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.bewy5.hosts.cx/video/",
+        "description": "NSFW Directory",
+        "section": "NSFW",
+        "subsection": "Directory"
+    },
+    {
+        "url": "http://www.idriders.com/temp/",
+        "description": "",
+        "section": "NSFW",
+        "subsection": "Directory"
+    },
+    {
+        "url": "http://www.idriders.com/temp/eugene/",
+        "description": "",
+        "section": "NSFW",
+        "subsection": "Other"
+    },
+    {
+        "url": "https://www.twitter.com/stephsecretwit/status/1651706535339278337",
+        "description": "How to suck dick",
+        "section": "NSFW",
+        "subsection": "Other"
+    },
+    {
+        "url": "https://www.findporn.ai/",
+        "description": "Porn AI SE",
+        "section": "NSFW",
+        "subsection": "Sites"
+    },
+    {
+        "url": "https://www.nudecosplaygirls.com/",
+        "description": "",
+        "section": "NSFW",
+        "subsection": "Sites"
     }
 ]
