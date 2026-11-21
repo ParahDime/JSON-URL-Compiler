@@ -1,2 +1,11 @@
 convert to sql button
 search button for html
+
+way to export to google bookmarks style
+way to import google bookmarks 
+
+way to check links that have no desc
+search function? (next to verify and add btn, uses sections)
+Way to check empty descriptions
+
+enter button works on procecssing data popups

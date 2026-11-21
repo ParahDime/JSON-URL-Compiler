@@ -15,13 +15,13 @@
   "Languages": ["Chinese", "Czech", "French", "German", "Helpful Info", "Japanese", "Other languages", "Polish", "Russian", "Sites", "Spanish"],
   "NSFW": ["AI", "Directory", "Other", "Sites"],
   "Maths": ["Learning", "Other", "Terminology", "Tutorials"],
-  "Media": ["Anime", "Documentaries", "Languages", "Movies", "Other"],
-  "Music": ["Alt", "Background", "Future Funk", "KPOP", "LOfi", "RnB", "Playlist", "Other", "Unavailable", "Directory"],
-  "Programming Languages": ["C", "C++", "C#", "CSS", "Git", "HTML", "Java", "JavaScript", "Linux", "PHP", "Python", "R", "Ruby", "Rust", "SQL", "Other"],
+  "Media": ["Anime", "Documentaries", "Languages", "Sounds", "Movies", "Other", "TV"],
+  "Music": ["Alt", "Background", "Future Funk", "Gaming", "House", "JPOP", "KPOP", "Lofi", "Metal", "Rock", "RnB", "Playlist", "Other", "Unavailable", "Directory"],
+  "Programming Languages": ["Assembly", "C", "C++", "C#", "CSS", "Git", "Go", "HTML", "Java", "JavaScript", "Linux", "PHP", "Python", "R", "Ruby", "Rust", "SQL", "Other"],
   "Music Learning": ["Guitar", "Piano", "Theory"],
-  "Programming": ["AI", "API", "Help", "Ideas", "Github", "Learning", "Other", "Resources", "Web dev"],
+  "Programming": ["AI", "API", "AWS", "Docker", "Help", "Ideas", "Github", "Learning", "Other", "Resources", "Web dev"],
   "Psychology": ["Articles", "Creators", "Mindset", "Motivation", "Skills", "Trauma", "Wellbeing"],
-  "Skills": ["Cars", "Construction", "Manuals", "Other", "Self improvement", "Shortcuts", "Travel", "Urban Skills"],
+  "Skills": ["Animals", "Cars", "Construction", "Manuals", "Other", "Self improvement", "Shortcuts", "Travel", "Urban Skills"],
   "Socials": ["Image Based", "Other", "Social Media", "Special", "Subreddits"],
-  "Software": ["AI", "Download", "Files", "Finance", "IDEs", "Image Editors", "Languages", "Online", "Other", "Productivity", "Search Engines", "Streaming", "Wireframe"]
+  "Software": ["AI", "Download", "Files", "Finance", "IDEs", "Image Editors / Art", "Languages", "Online", "Other", "Productivity", "Search Engines", "Streaming", "Wireframe"]
 }
