@@ -1,11 +1,12 @@
-convert to sql button
-search button for html
-
-way to export to google bookmarks style
-way to import google bookmarks 
+way to export to google bookmarks style A
+way to import google bookmarks  A
 
 way to check links that have no desc
-search function? (next to verify and add btn, uses sections)
-Way to check empty descriptions
+search function? (next to verify and add btn, uses sections) for links
 
 enter button works on procecssing data popups
+update btn, using/near check links
+
+way to ping all links, then way to output?
+
+self.root.bind('<Return>', lambda e: self.validate_and_check())

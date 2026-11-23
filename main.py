@@ -13,7 +13,7 @@ class DirectoryManager:
     def __init__(self, root):
         self.root = root
         self.root.title("Manual Link Directory Input")
-        self.root.geometry("600x500")
+        self.root.geometry("600x700")
 
         #JSON name files
         self.data_file = "directory.json"
@@ -22,13 +22,34 @@ class DirectoryManager:
               
         self.excel_queue = self.load_json(self.queue_file)
 
+        """Look where to place these
+    
+        
+        self.search_sections_btn = tk.Button(
+                            url_frame, text="Check link", 
+                            bg="#33493c", fg="white", font=('Arial', 10, 'bold'),
+                            command=self.search_sections
+                        )
+                        
+        
+        """
+
+        import_frame = tk.Frame(root)
+        import_frame.pack()
+          
         self.read_in_btn = tk.Button(
-            root, text="Select File", 
+            import_frame, text="Select File", 
             bg="#33493c", fg="white", font=('Arial', 10, 'bold'),
             command=self.select_excel_file
         )
-        self.read_in_btn.pack(pady=10)
+        self.read_in_btn.pack(side="left")
 
+        self.google_import_btn = tk.Button(
+            import_frame, text="Import Bookmarks", 
+            bg="#33493c", fg="white", font=('Arial', 10, 'bold'),
+            command=self.google_import
+        )
+        self.google_import_btn.pack()
         #dropdown lists
         self.section_menu = tk.StringVar(value="Select Section")
         self.subsection_menu = tk.StringVar(value="Select Subsection")
@@ -90,12 +111,29 @@ class DirectoryManager:
             command=self.open_process_popup
         )
 
+        self.ping_list_btn = tk.Button(
+            add_frame, text="Ping all entries", 
+            bg="#1d5c38", fg="white", font=('Arial', 10, 'bold'),
+            command=self.ping_list
+        )
+        self.ping_list_btn.pack()
+
+        output_frame = tk.Frame(root)
+        output_frame.pack()
         self.convert_btn = tk.Button(
-            add_frame, text="Convert entries to SQL", 
+            output_frame, text="Export to SQL", 
             bg="#1d5c38", fg="white", font=('Arial', 10, 'bold'),
             command=self.send_to_sql
         )
-        self.convert_btn.pack()
+        self.convert_btn.pack(side="left")
+
+        self.google_export_btn = tk.Button(
+            output_frame, text="Export bookmarks", 
+            bg="#1d5c38", fg="white", font=('Arial', 10, 'bold'),
+            command=self.google_export
+        )
+        self.google_export_btn.pack()
+        
 
         #Add to JSON button
         self.add_btn = tk.Button(
@@ -172,6 +210,13 @@ class DirectoryManager:
         exact = [e for e in data if self.url_key(e['url']) == key]
         similar = [e for e in data if self.url_key(e['url']) != key and self.get_base_domain(e['url']) == domain]
         return exact, similar
+
+    #import google bookmarks into data
+    def google_import():
+        print("Hello world")
+    #export all links input into a google readable file
+    def google_export():
+        print("Hello world")
 
     #get the first part of the domain
     def get_base_domain(self, url):
@@ -355,7 +400,9 @@ class DirectoryManager:
             font=('Arial', 9, 'bold'), width=12, command=skip_for_later
         ).grid(row=0, column=2, padx=5)   
 
-    
+    def ping_list():
+        print("Hello world")
+
     #Remove single item from queue and rewrite queue.json
     def remove_from_queue_disk(self, index=0):
         if self.excel_queue:
@@ -520,7 +567,7 @@ class DirectoryManager:
         count = len(self.excel_queue)
         if count > 0:
             self.process_btn.config(text=f"Process Staged Data ({count} remaining)")
-            self.process_btn.pack(side="left", pady=(0, 10), before=self.convert_btn)
+            self.process_btn.pack(side="left", pady=(0, 10), before=self.ping_list_btn)
         else:
             self.process_btn.pack_forget()
 
