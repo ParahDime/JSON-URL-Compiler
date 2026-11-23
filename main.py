@@ -3,6 +3,8 @@ from tkinter import messagebox, ttk, filedialog
 import json
 from rapidfuzz import fuzz #old package
 import os
+from html.parser import HTMLParser
+from html import escape
 from urllib.parse import urlparse
 
 import sqlite3
@@ -212,11 +214,120 @@ class DirectoryManager:
         return exact, similar
 
     #import google bookmarks into data
-    def google_import():
-        print("Hello world")
+    def google_import(html_path, json_path="queue.json"):
+        file_path = filedialog.askopenfilename(
+            title="Select HTML File",
+            filetypes=[("HTML Files", "*.html"), ("All Files", "*.*")]
+        )
+        if not file_path:
+            return
+        try:
+            class _Parser(HTMLParser):
+                def __init__(self):
+                    super().__init__()
+                    self.pending = "" 
+                    self.entries = []
+                    self.folders = []  # folder name waiting for its <DL>
+                    self.mode = None    # "a" or "h3" while capturing text
+                    self.href = ""
+                    self.text = ""
+
+                def handle_starttag(self, tag, attrs):
+                    if tag == "a":
+                        self.mode, self.text = "a", ""
+                        self.href = dict(attrs).get("href", "")  # the link
+                    elif tag == "h3":
+                        self.mode, self.text = "h3", ""          # folder name follows
+                    elif tag == "dl":
+                        self.folders.append(self.pending)        # enter folder
+                        self.pending = ""
+
+                def handle_data(self, data):
+                    if self.mode:
+                        self.text += data                        # collect tag text
+
+                def handle_endtag(self, tag):
+                    if tag == "a" and self.mode == "a":
+                        self.entries.append({
+                            "url": self.href,
+                            "description": self.text.strip(),
+                            "section": self.folders[-1] if self.folders else "",
+                        })
+                        self.mode = None
+                    elif tag == "h3" and self.mode == "h3":
+                        self.pending = self.text.strip()         # name for next <DL>
+                        self.mode = None
+                    elif tag == "dl" and self.folders:
+                        self.folders.pop()                       # leave folder
+
+            parser = _Parser()
+            with open(html_path, encoding="utf-8") as f:
+                parser.feed(f.read())
+
+            if json_path:
+                with open(json_path, "w", encoding="utf-8") as f:
+                    json.dump(parser.entries, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to parse Bookmark file:\n{str(e)}")
+        
     #export all links input into a google readable file
-    def google_export():
-        print("Hello world")
+    def google_export(self):
+        data = self.load_json(self.data_file)
+        if not data:
+            messagebox.showwarning("Warning", "No entries to export.")
+            return
+                
+        base = os.path.dirname(os.path.abspath(__file__))
+        path = os.path.join(base, "directory.db")
+        if not path:
+            return
+        
+        if os.path.exists(path):
+            os.remove(path)
+
+        json_path="directory.json"
+        html_path="bookmarks.html"
+        #export file into readable google html file
+        with open(json_path, encoding="utf-8") as f:
+            text = f.read()
+        try:
+            entries = json.loads(text)
+        except json.JSONDecodeError:
+            entries = [json.loads(line) for line in text.splitlines() if line.strip()]
+
+        # group links by section, keeping first-seen order
+        sections = {}
+        for e in entries:
+            sections.setdefault(e.get("section", ""), []).append(e)
+
+        def link_line(e, indent):
+            # escape so &, <, " in titles/urls don't break the HTML
+            href = escape(e.get("url", ""), quote=True)
+            desc = escape(e.get("description", "") or e.get("link", ""))
+            return f'{indent}<DT><A HREF="{href}">{desc}</A>\n'
+
+        out = [
+            "<!DOCTYPE NETSCAPE-Bookmark-file-1>\n",
+            '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">\n',
+            "<TITLE>Bookmarks</TITLE>\n",
+            "<H1>Bookmarks</H1>\n",
+            "<DL><p>\n",
+        ]
+
+        for name, items in sections.items():
+            if name:
+                # named section becomes a folder: <H3> name + nested <DL>
+                out.append(f"    <DT><H3>{escape(name)}</H3>\n    <DL><p>\n")
+                out.extend(link_line(e, "        ") for e in items)
+                out.append("    </DL><p>\n")
+            else:
+                # no section: put links at the top level
+                out.extend(link_line(e, "    ") for e in items)
+
+        out.append("</DL><p>\n")
+
+        with open(html_path, "w", encoding="utf-8") as f:
+            f.writelines(out)
 
     #get the first part of the domain
     def get_base_domain(self, url):
